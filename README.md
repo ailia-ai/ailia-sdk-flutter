@@ -10,5 +10,5 @@ ailia SDK is a cross-platform high speed inference SDK. The ailia SDK provides a
 
 ## API specification
 
-https://github.com/axinc-ai/ailia-sdk
+https://github.com/ailia-ai/ailia-sdk
 
