@@ -27,6 +27,14 @@ class AiliaTensor {
 
 class AiliaEnvironment {
   int id = 0;
+
+  /// AILIA_ENVIRONMENT_TYPE_* (CPU / BLAS / GPU)
+  int type = 0;
+
+  /// AILIA_ENVIRONMENT_BACKEND_* (NONE / CUDA / MPS / VULKAN)
+  int backend = 0;
+
+  /// Logical-OR of AILIA_ENVIRONMENT_PROPERTY_*
   int props = 0;
   String name = "";
 }
@@ -402,6 +410,8 @@ class AiliaModel {
       AiliaEnvironment env = AiliaEnvironment();
       env.id = pEnv.ref.id;
       env.name = pEnv.ref.name.cast<Utf8>().toDartString();
+      env.type = pEnv.ref.type;
+      env.backend = pEnv.ref.backend;
       env.props = pEnv.ref.props;
       envList.add(env);
     }
