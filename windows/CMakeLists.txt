@@ -63,6 +63,7 @@ if(AILIA_ARCH STREQUAL "arm64")
   # The arm64 build of the ailia SDK provides ailia.dll only.
   set(ailia_bundled_libraries
     "${CMAKE_CURRENT_SOURCE_DIR}/arm64/ailia.dll"
+    "${CMAKE_CURRENT_SOURCE_DIR}/arm64/ailia_qnn.dll"
     PARENT_SCOPE
   )
 else()
