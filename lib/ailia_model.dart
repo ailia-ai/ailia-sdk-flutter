@@ -157,9 +157,7 @@ class AiliaModel {
     _open(envId, memoryMode);
 
     Pointer<Uint8> onnxModel = malloc<Uint8>(onnx.length);
-    for (int i = 0; i < onnx.length; i++) {
-      onnxModel[i] = onnx[i];
-    }
+    onnxModel.asTypedList(onnx.length).setAll(0, onnx);
 
     int status =
         ailia.ailiaOpenWeightMem(ppAilia!.value, onnxModel, onnx.length);
@@ -172,11 +170,9 @@ class AiliaModel {
   }
 
   Float32List _toList(Pointer<Float> tensorData, int tensorSize) {
-    Float32List floatData = Float32List(tensorSize);
-    for (int j = 0; j < tensorSize; j++) {
-      floatData[j] = tensorData[j];
-    }
-    return floatData;
+    // Copy out of the native buffer; a plain asTypedList view would
+    // become invalid when the caller frees the buffer.
+    return Float32List.fromList(tensorData.asTypedList(tensorSize));
   }
 
   List<AiliaTensor> run(List<AiliaTensor> inputTensor) {
@@ -211,9 +207,7 @@ class AiliaModel {
       }
 
       Pointer<Float> inputData = malloc<Float>(tensor.data.length);
-      for (int j = 0; j < tensor.data.length; j++) {
-        inputData[j] = tensor.data[j];
-      }
+      inputData.asTypedList(tensor.data.length).setAll(0, tensor.data);
 
       status = ailia.ailiaSetInputBlobData(ppAilia!.value,
           inputData.cast<Void>(), tensor.data.length * 4, inputBlobIdx.value);
@@ -481,8 +475,6 @@ class AiliaDetectorModel {
       {double threshold = 0.4,
       double iou = 0.45,
       int format = ailia_dart.AILIA_IMAGE_FORMAT_RGB}) {
-    List pixel = img.buffer.asUint8List().toList();
-
     if (!available) {
       throw Exception("instance not available");
     }
@@ -492,14 +484,12 @@ class AiliaDetectorModel {
         format == ailia_dart.AILIA_IMAGE_FORMAT_BGR) {
       channels = 3;
     }
-    if (pixel.length != width * height * channels) {
+    if (img.length != width * height * channels) {
       throw Exception("invalid image format");
     }
 
-    Pointer<Uint8> inputData = malloc<Uint8>(pixel.length);
-    for (int j = 0; j < pixel.length; j++) {
-      inputData[j] = pixel[j];
-    }
+    Pointer<Uint8> inputData = malloc<Uint8>(img.length);
+    inputData.asTypedList(img.length).setAll(0, img);
 
     int status = model!.ailia.ailiaDetectorCompute(
         ppDetector!.value,
