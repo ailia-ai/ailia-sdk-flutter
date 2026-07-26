@@ -64,6 +64,7 @@ if(AILIA_ARCH STREQUAL "arm64")
   set(ailia_bundled_libraries
     "${CMAKE_CURRENT_SOURCE_DIR}/arm64/ailia.dll"
     "${CMAKE_CURRENT_SOURCE_DIR}/arm64/ailia_pose_estimate.dll"
+    "${CMAKE_CURRENT_SOURCE_DIR}/arm64/ailia_qnn.dll"
     PARENT_SCOPE
   )
 else()
