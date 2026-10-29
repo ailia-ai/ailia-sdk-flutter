@@ -46,10 +46,11 @@ target_link_libraries(${PLUGIN_NAME} PRIVATE PkgConfig::GTK)
 # external build triggered from this build file.
 set(ailia_bundled_libraries
   "${CMAKE_CURRENT_SOURCE_DIR}/x64/libailia_blas.so"
-  "${CMAKE_CURRENT_SOURCE_DIR}/x64/libailia_cuda-8.3.so"
-  "${CMAKE_CURRENT_SOURCE_DIR}/x64/libailia_cuda-8.8.so"
-  "${CMAKE_CURRENT_SOURCE_DIR}/x64/libailia_cuda-8.so"
-  "${CMAKE_CURRENT_SOURCE_DIR}/x64/libailia_cuda-9.so"
+  "${CMAKE_CURRENT_SOURCE_DIR}/x64/libailia_cuda-8-11.so"
+  "${CMAKE_CURRENT_SOURCE_DIR}/x64/libailia_cuda-8.3-11.so"
+  "${CMAKE_CURRENT_SOURCE_DIR}/x64/libailia_cuda-8.8-12.so"
+  "${CMAKE_CURRENT_SOURCE_DIR}/x64/libailia_cuda-9-12.so"
+  "${CMAKE_CURRENT_SOURCE_DIR}/x64/libailia_cuda-9.13-13.so"
   "${CMAKE_CURRENT_SOURCE_DIR}/x64/libailia_pose_estimate.so"
   "${CMAKE_CURRENT_SOURCE_DIR}/x64/libailia_vulkan.so"
   "${CMAKE_CURRENT_SOURCE_DIR}/x64/libailia.so"
